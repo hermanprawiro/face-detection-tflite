@@ -6,13 +6,13 @@ import numpy as np
 import tensorflow as tf
 from PIL.Image import Image
 from typing import List, Optional, Sequence, Tuple, Union
-from fdlite import ModelDataError
-from fdlite.render import Annotation
-from fdlite.render import Color, landmarks_to_render_data
-from fdlite.transform import SizeMode, bbox_to_roi, image_to_tensor, sigmoid
-from fdlite.transform import project_landmarks
-from fdlite.types import Detection, Landmark, Rect
-from fdlite.face_detection import FaceIndex
+from . import ModelDataError
+from .render import Annotation
+from .render import Color, landmarks_to_render_data
+from .transform import SizeMode, bbox_to_roi, image_to_tensor, sigmoid
+from .transform import project_landmarks
+from .types import Detection, Landmark, Rect
+from .face_detection import FaceIndex
 """Model for face landmark detection.
 
 Ported from Google® MediaPipe (https://google.github.io/mediapipe/).

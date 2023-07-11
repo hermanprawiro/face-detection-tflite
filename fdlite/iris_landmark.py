@@ -8,12 +8,12 @@ import os
 import tensorflow as tf
 from PIL.Image import Image
 from typing import List, Optional, Sequence, Tuple, Union
-from fdlite import ArgumentError, MissingExifDataError, ModelDataError, exif
-from fdlite.render import Annotation, Color, Point, RectOrOval
-from fdlite.render import landmarks_to_render_data
-from fdlite.transform import bbox_from_landmarks, bbox_to_roi, image_to_tensor
-from fdlite.transform import project_landmarks, SizeMode
-from fdlite.types import Landmark, Rect
+from . import ArgumentError, MissingExifDataError, ModelDataError, exif
+from .render import Annotation, Color, Point, RectOrOval
+from .render import landmarks_to_render_data
+from .transform import bbox_from_landmarks, bbox_to_roi, image_to_tensor
+from .transform import project_landmarks, SizeMode
+from .types import Landmark, Rect
 """Iris landmark detection model.
 
 Ported from Google® MediaPipe (https://google.github.io/mediapipe/).

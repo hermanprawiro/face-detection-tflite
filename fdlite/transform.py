@@ -6,8 +6,8 @@ from typing import List, Optional, Sequence, Tuple, Union
 import numpy as np
 from PIL import Image
 from PIL.Image import Image as PILImage
-from fdlite import ArgumentError, CoordinateRangeError, InvalidEnumError
-from fdlite.types import BBox, Detection, ImageTensor, Landmark, Rect
+from . import ArgumentError, CoordinateRangeError, InvalidEnumError
+from .types import BBox, Detection, ImageTensor, Landmark, Rect
 """Functions for data transformations that are used by the detection models"""
 
 

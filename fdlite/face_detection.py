@@ -22,11 +22,11 @@ import tensorflow as tf
 from enum import IntEnum
 from PIL.Image import Image
 from typing import List, Optional, Union
-from fdlite import InvalidEnumError
-from fdlite.nms import non_maximum_suppression
-from fdlite.transform import detection_letterbox_removal, image_to_tensor
-from fdlite.transform import sigmoid
-from fdlite.types import Detection, Rect
+from . import InvalidEnumError
+from .nms import non_maximum_suppression
+from .transform import detection_letterbox_removal, image_to_tensor
+from .transform import sigmoid
+from .types import Detection, Rect
 
 MODEL_NAME_BACK = 'face_detection_back.tflite'
 MODEL_NAME_FRONT = 'face_detection_front.tflite'

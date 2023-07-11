@@ -3,7 +3,7 @@
 # SPDX-Identifier: MIT
 import numpy as np
 from typing import List, Optional, Tuple
-from fdlite.types import BBox, Detection
+from .types import BBox, Detection
 """Implementation of non-maximum-suppression (NMS) for detections."""
 
 

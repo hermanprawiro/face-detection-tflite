@@ -5,8 +5,8 @@ from dataclasses import dataclass
 from typing import List, Optional, Sequence, Tuple, Union
 from PIL import ImageDraw
 from PIL.Image import Image as PILImage
-from fdlite import CoordinateRangeError
-from fdlite.types import Detection, Landmark
+from . import CoordinateRangeError
+from .types import Detection, Landmark
 """Types and functions related to rendering detection results"""
 
 
