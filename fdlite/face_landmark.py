@@ -73,7 +73,8 @@ MAX_FACE_LANDMARK = len(FACE_LANDMARK_CONNECTIONS)
 
 def face_detection_to_roi(
     face_detection: Detection,
-    image_size: Tuple[int, int]
+    image_size: Tuple[int, int],
+    scale: Tuple[float, float] = ROI_SCALE
 ) -> Rect:
     """Return a normalized ROI from a list of face detection results.
 
@@ -103,6 +104,8 @@ def face_detection_to_roi(
         image_size (tuple): A tuple of `(image_width, image_height)` denoting
             the size of the input image the face detection results came from.
 
+        scale (tuple): A tuple of `(x_scale, y_scale)` to scale the ROI by.
+
     Returns:
         (Rect) Normalized ROI for passing to `FaceLandmark`.
     """
@@ -113,7 +116,7 @@ def face_detection_to_roi(
         face_detection.bbox,
         image_size,
         rotation_keypoints=[left_eye, right_eye],
-        scale=ROI_SCALE,
+        scale=scale,
         size_mode=SizeMode.SQUARE_LONG
     )
 

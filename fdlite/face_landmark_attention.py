@@ -83,53 +83,6 @@ LIPS_TO_FACE_LANDMARK_INDEX = [
 ]
 
 
-def face_detection_to_roi(
-    face_detection: Detection,
-    image_size: Tuple[int, int]
-) -> Rect:
-    """Return a normalized ROI from a list of face detection results.
-
-    The result of this function is intended to serve as the input of
-    calls to `FaceLandmark`:
-
-    ```
-        MODEL_PATH = '/var/mediapipe/models/'
-        ...
-        face_detect = FaceDetection(model_path=MODEL_PATH)
-        face_landmarks = FaceLandmark(model_path=MODEL_PATH)
-        image = Image.open('/home/user/pictures/photo.jpg')
-        # detect faces
-        detections = face_detect(image)
-        for detection in detections:
-            # find ROI from detection
-            roi = face_detection_to_roi(detection)
-            # extract face landmarks using ROI
-            landmarks = face_landmarks(image, roi)
-            ...
-    ```
-
-    Args:
-        face_detection (Detection): Normalized face detection result from a
-            call to `FaceDetection`.
-
-        image_size (tuple): A tuple of `(image_width, image_height)` denoting
-            the size of the input image the face detection results came from.
-
-    Returns:
-        (Rect) Normalized ROI for passing to `FaceLandmark`.
-    """
-    absolute_detection = face_detection.scaled(image_size)
-    left_eye = absolute_detection[FaceIndex.LEFT_EYE]
-    right_eye = absolute_detection[FaceIndex.RIGHT_EYE]
-    return bbox_to_roi(
-        face_detection.bbox,
-        image_size,
-        rotation_keypoints=[left_eye, right_eye],
-        scale=ROI_SCALE,
-        size_mode=SizeMode.SQUARE_LONG
-    )
-
-
 class FaceLandmarkAttention:
     """Face Landmark detection model as used by Google MediaPipe.
 
@@ -221,46 +174,6 @@ class FaceLandmarkAttention:
                                  image_size=image_data.original_size,
                                  padding=image_data.padding,
                                  roi=roi)
-
-
-def face_landmarks_to_render_data(
-    face_landmarks: Sequence[Landmark],
-    landmark_color: Color,
-    connection_color: Color,
-    thickness: float = 2.0,
-    output: Optional[List[Annotation]] = None
-) -> List[Annotation]:
-    """Convert face landmarks to render data.
-
-    This post-processing function can be used to generate a list of rendering
-    instructions from face landmark detection results.
-
-    Args:
-        face_landmarks (list): List of `Landmark` detection results returned
-            by `FaceLandmark`.
-
-        landmark_color (Color): Color of the individual landmark points.
-
-        connection_color (Color): Color of the landmark connections that
-            will be rendered as lines.
-
-        thickness (float): Width of the lines and landmark point size in
-            viewport units (e.g. pixels).
-
-        output (list): Optional list of render annotations to add the items
-            to. If not provided, a new list will be created.
-            Use this to add multiple landmark detections into a single render
-            annotation list.
-
-    Returns:
-        (list) List of render annotations that should be rendered.
-        All positions are normalized, e.g. with a value range of [0, 1].
-    """
-    render_data = landmarks_to_render_data(
-        face_landmarks, FACE_LANDMARK_CONNECTIONS,
-        landmark_color, connection_color, thickness,
-        normalized_positions=True, output=output)
-    return render_data
 
 
 def pad_landmarks_2d_to_3d(
